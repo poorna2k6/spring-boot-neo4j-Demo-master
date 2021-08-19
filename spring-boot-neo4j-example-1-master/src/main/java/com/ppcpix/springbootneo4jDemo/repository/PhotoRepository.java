@@ -8,7 +8,6 @@ import java.util.Collection;
 
 public interface PhotoRepository extends Neo4jRepository<Photo, Long> {
 
-    //@Query("MATCH (u:User)<-[r:RATED]-(m:Movie) RETURN u,r,m")
     @Query("CREATE (c:Photo {size:'898MB', location: 'Frisco Texas',time: '18th Aug 2021'})")
     Photo create(String nodeName,String size);
     @Query("MATCH (c:Photo) DETACH DELETE c")

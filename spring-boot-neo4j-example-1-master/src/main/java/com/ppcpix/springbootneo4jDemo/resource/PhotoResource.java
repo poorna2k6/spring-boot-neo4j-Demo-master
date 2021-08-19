@@ -1,16 +1,20 @@
 package com.ppcpix.springbootneo4jDemo.resource;
 
+import com.ppcpix.springbootneo4jDemo.model.Movie;
 import com.ppcpix.springbootneo4jDemo.model.Photo;
 import com.ppcpix.springbootneo4jDemo.service.PhotoService;
 import com.ppcpix.springbootneo4jDemo.service.QueryNeo4jService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("/rest/neo4j/")
+@Api(value = "Photo Node", description = "Photo Node - Neo4j Demo Application")
 public class PhotoResource {
 
     @Autowired
@@ -20,47 +24,43 @@ public class PhotoResource {
 
 
     @PostMapping ("/photo/create")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Create new Photo Node")
     public Photo createPhotoRecord(@RequestBody Photo photo) {
-        System.out.println("Time in createNewRecordController Start:"+new Timestamp(System.currentTimeMillis()));
-        Photo photo1= photoService.createNewRecord(photo);
-        System.out.println("Time in createNewRecordController Start:"+new Timestamp(System.currentTimeMillis()));
-        return photo1;
+        return photoService.createNewRecord(photo);
     }
 
     @GetMapping("/photo/list")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get All Photo Nodes")
     public Collection<Photo> getPhoto() {
-        System.out.println("Time in createNewRecordController Start:"+new Timestamp(System.currentTimeMillis()));
-        Collection<Photo> photo= photoService.getPhotos();
-        System.out.println("Time in createNewRecordController Start:"+new Timestamp(System.currentTimeMillis()));
-        return photo;
+        return  photoService.getPhotos();
     }
     @DeleteMapping("/photo/delete")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Delete a photo Node")
     public void delete() {
-        System.out.println("Time in Delete Controller Start:"+new Timestamp(System.currentTimeMillis()));
-         photoService.deleteNode();
-        System.out.println("Time in Delete Controller End:"+new Timestamp(System.currentTimeMillis()));
+        photoService.deleteNode();
     }
 
     @DeleteMapping("/photo/deleteAll")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Delete All Photo Nodes")
     public void deleteAll() {
-        System.out.println("Time in DeleteALL Controller Start:"+new Timestamp(System.currentTimeMillis()));
         photoService.deleteNodeNew();
-        System.out.println("Time in DeleteALL Controller End:"+new Timestamp(System.currentTimeMillis()));
     }
-//    @GetMapping("/execute")
-//    public void testExecute(){
-//        System.out.println("Time in testExecute Controller Start:"+new Timestamp(System.currentTimeMillis()));
-//        queryNeo4JService.printGreeting();
-//        System.out.println("Time in testExecute Controller End:"+new Timestamp(System.currentTimeMillis()));
-//
-//    }
+
     @PostMapping("/photo/save")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Save a Photo Details")
     public void save(@RequestBody Photo photo){
         photoService.saveNode(photo);
     }
 
     @GetMapping("/execute")
-    public void execute(){
-        queryNeo4JService.executeQuery();
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Execute Custom Query")
+    public void execute(Movie movie){
+        queryNeo4JService.executeQuery(Movie.class,movie);
     }
 }

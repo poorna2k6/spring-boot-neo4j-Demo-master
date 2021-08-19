@@ -5,11 +5,12 @@ import org.neo4j.driver.*;
 import org.neo4j.driver.async.AsyncSession;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
-public class QueryNeo4jService {
-    public void executeQuery(){
+public class QueryNeo4jService <T>{
+    public Collection<T> executeQuery(Class<T> type , Object m){
         String uri;
         AuthToken auth;
         Config config = Config.builder().build();
@@ -36,5 +37,6 @@ public class QueryNeo4jService {
         }catch(Exception ex){
 
         }
+        return null;
     }
 }
