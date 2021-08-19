@@ -63,4 +63,11 @@ public class PhotoResource {
     public void execute(Movie movie){
         queryNeo4JService.executeQuery(Movie.class,movie);
     }
+
+    @DeleteMapping("/photo/delete/node")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Delete Specific  Photo Node with ID")
+    public void deleteSpecificNode(@RequestBody Photo photo) {
+        photoService.deleteSpecificNode(photo);
+    }
 }

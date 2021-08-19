@@ -36,6 +36,9 @@ public class PhotoService {
         photoRepository.deleteAll();
     }
 
+    public void deleteSpecificNode(Photo photo){
+        photoRepository.delete(photo.getId());
+    }
     public void saveNode(Photo photo){
         photoRepository.save(photo);
     }
