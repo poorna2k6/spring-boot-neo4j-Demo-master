@@ -18,7 +18,7 @@ public class SwaggerConfig {
 
 
     @Bean
-    public Docket productApi() {
+    public Docket neo4jApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.ppcpix.springbootneo4jDemo"))
